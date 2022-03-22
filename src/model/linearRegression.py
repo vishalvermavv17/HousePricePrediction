@@ -37,6 +37,8 @@ class LinearRegressionUsingGD:
         -------
         self : object
         """
+        # Add column with constant value = 1 to represent intercept in linear regression equation
+        x = np.c_[np.ones(x.shape[0]), x]
 
         self.cost_ = []
         self.w_ = np.zeros((x.shape[1], 1))
@@ -62,5 +64,7 @@ class LinearRegressionUsingGD:
         -------
         Predicted value
         """
+        # Add column with constant value = 1 to represent intercept in linear regression equation
+        x = np.c_[np.ones(x.shape[0]), x]
 
         return np.dot(x, self.w_)

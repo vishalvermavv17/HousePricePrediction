@@ -3,9 +3,9 @@
 
 <head>
 
-<link rel='stylesheet' type='text/css'
-	media='screen'
-	href="{{ url_for('static',
+    <link rel='stylesheet' type='text/css'
+          media='screen'
+          href="{{ url_for('static',
     	filename='css/main.css') }}">
 </head>
 
@@ -13,15 +13,25 @@
 
 <h1>HOUSE PRICE PREDICTION</h1>
 <form action="{{url_for('predict')}}" method="POST">
-Bedrooms: <input type="number" name='bedrooms'
-	placeholder="Enter the no of Bedrooms"><br>
-Bathrooms: <input type="number" name='bathrooms'
-	placeholder="Enter the no of Bathrooms"><br>
-Floors: <input type="number" name='floors'
-	placeholder="Enter the no of Floors"><br>
-Year of Build: <input type="number" name='yr_built'
-	placeholder="Enter year of Build"><br>
-<input type="submit" value="predict" class="submit">
+    OverallQual: <input type="number" name='OverallQual'
+                        placeholder="Rates the overall material and finish of the house"><br>
+    YrSold: <input type="number" name='YrSold'
+                   placeholder="Year Sold (YYYY)"><br>
+    YearBuilt: <input type="number" name='YearBuilt'
+                      placeholder="Original construction date"><br>
+    YearRemodAdd: <input type="number" name='YearRemodAdd'
+                      placeholder="Remodel date (same as construction date if no remodeling or additions)"><br>
+    1stFlrSF: <input type="number" name='1stFlrSF'
+                     placeholder="First Floor square feet"><br>
+    2ndFlrSF: <input type="number" name='2ndFlrSF'
+                     placeholder="Second floor square feet"><br>
+    TotRmsAbvGrds: <input type="number" name='TotRmsAbvGrd'
+                          placeholder="Total rooms above grade (does not include bathrooms)"><br>
+    GarageCars: <input type="number" name='GarageCars'
+                       placeholder="Size of garage in car capacity"><br>
+    Fireplaces: <input type="number" name='Fireplaces'
+                       placeholder="Number of fireplaces"><br>
+    <input type="submit" value="predict" class="submit">
 </form>
 <p> House Price is: {{data}}</p>
 

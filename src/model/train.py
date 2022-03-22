@@ -1,5 +1,5 @@
 from linearRegression import LinearRegressionUsingGD
-from src.CONSTANTS import FEATURE_COLUMNS_PKL, TARGET_LABEL, TRAINED_MODEL_NAME
+from src.CONSTANTS import FEATURE_COLUMNS, TARGET_LABEL, TRAINED_MODEL_NAME
 
 import numpy as np
 import pandas as pd
@@ -16,14 +16,9 @@ processed_data_dirpath = '../../data/processed'
 train_data = pd.read_csv(os.path.join(cwd, processed_data_dirpath, 'processed_data.csv'))
 train_data.info()
 
-with open(models_dirpath + FEATURE_COLUMNS_PKL, 'rb') as input_file:
-    feature_columns = pickle.load(input_file)
-
-X = train_data[feature_columns]
+print("feature columns={} and target label={} used for model training.".format(FEATURE_COLUMNS, TARGET_LABEL))
+X = train_data[FEATURE_COLUMNS]
 y = train_data[TARGET_LABEL]
-
-# Add column with constant value = 1 to represent intercept in linear regression equation
-X = np.c_[np.ones(X.shape[0]), X]
 
 linear_regressor = LinearRegressionUsingGD(0.01, 200)
 linear_regressor = linear_regressor.fit(X, y)

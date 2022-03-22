@@ -1,6 +1,6 @@
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
-from src.CONSTANTS import FEATURE_COLUMNS_PKL, TARGET_LABEL
+from src.CONSTANTS import TARGET_LABEL, FEATURE_COLUMNS, PROCESSED_DATA_MEAN_PKL, PROCESSED_DATA_STD_PKL
 
 import pandas as pd
 import pickle
@@ -28,17 +28,17 @@ print("Remaining columns: {}".format(df.columns))
 # update numerical feature list
 numerical_features = list(set(numerical_features) - set(feature_col_drop))
 
-feature_columns = list(set(numerical_features) - set(TARGET_LABEL))
-
-# store feature_columns
-with open(models_dirpath + FEATURE_COLUMNS_PKL, 'wb') as output_file:
-    pickle.dump(feature_columns, output_file)
+feature_columns = FEATURE_COLUMNS
 
 # Imputing numerical feature missing values
 it_imputer = IterativeImputer(max_iter=10)
 processed_data = pd.DataFrame(it_imputer.fit_transform(df[feature_columns]),
                               columns=df[feature_columns].columns).set_index(df.index)
 processed_data.info()
+
+# store processed data mean and std for inference request feature scaling
+pickle.dump(processed_data.mean(), open(models_dirpath + PROCESSED_DATA_MEAN_PKL, 'wb'))
+pickle.dump(processed_data.std(), open(models_dirpath + PROCESSED_DATA_STD_PKL, 'wb'))
 
 # Feature Scaling
 processed_data = (processed_data - processed_data.mean()) / processed_data.std()
