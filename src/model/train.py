@@ -40,4 +40,3 @@ mse = np.sum((y_pred - y)**2)/ X.shape[0]
 # root mean squared error
 rmse = np.sqrt(mse)
 print("MSE: [{}] and RMSE: [{}] for trained model".format(mse, rmse))
-
