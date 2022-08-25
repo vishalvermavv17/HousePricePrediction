@@ -1,6 +1,8 @@
 # Base Image
 FROM python:3.10
 
+ENV PORT 5000
+
 # Update pip
 RUN python -m pip install --upgrade pip
 
@@ -14,4 +16,5 @@ COPY . .
 RUN pip install -r requirements.txt
 
 # Run flask server
-CMD ["python3", "-m", "src.model.serve"]
+EXPOSE $PORT
+CMD gunicorn --workers=4 --bind 0.0.0.0:$PORT src.model.serve:app
